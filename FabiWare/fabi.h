@@ -124,8 +124,13 @@ uint16_t  keystringMemUsage(uint8_t button);
 void parseCommand (char * cmdstr);
 void parseByte (int newByte);
 
+#if defined(ARDUINO_AVR_MICRO)
 #define strcpy_FM   strcpy_PF
 #define strcmp_FM   strcmp_PF
+#elif defined(ARDUINO_NANO_RP2040_CONNECT)
+#define strcpy_FM   strcpy
+#define strcmp_FM   strcmp
+#endif
 typedef uint_farptr_t uint_farptr_t_FM;
 
 

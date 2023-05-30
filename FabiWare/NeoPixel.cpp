@@ -32,8 +32,10 @@ uint16_t dimmStep_b = 0;
 uint8_t LEDDimm_factor = 1; //reduces the brightnes of the LED: 1 = full, 2 = half brightness CAUTION: this can lead to changes in color!
 uint8_t DimmState = 0;       
 
+#if defined(ARDUINO_AVR_MICRO)
 WS2812 pixels(1);
 cRGB pixColor;
+#endif
 
 
 
@@ -49,21 +51,26 @@ cRGB pixColor;
 */
 void initNeoPixel(){
         
+#if defined(ARDUINO_AVR_MICRO)
     pixels.setOutput(PIXELS_PIN);
     pixels.setColorOrderGRB();
+#endif
 
+#if defined(ARDUINO_AVR_MICRO)
     pixColor.r = 0; pixColor.g = 0; pixColor.b = 0; // RGB Value
     pixels.set_crgb_at(0, pixColor);    // set defined color
     pixels.sync(); // Sends the value to the LED
-
+#endif
 
     //Pixel startup sequenc:
+#if defined(ARDUINO_AVR_MICRO)
     for (uint8_t i = 0; i < 255; i++) {
       pixColor.r = i;
       pixels.set_crgb_at(0, pixColor);
       pixels.sync();
       delay(4);
     }
+#endif
 
     /*
     for (uint8_t i = 255; i > (255/LEDDimm_factor); i--) {
@@ -100,12 +107,16 @@ void UpdateNeoPixel(){
     neoPix_b_16 -= dimmStep_b;
 
     //apply the color var to the pixColor (with division of 10, since the counter variables are 10* higher than the color to ensure smooth dimming with reduced brightness)
+#if defined(ARDUINO_AVR_MICRO)
     pixColor.r = neoPix_r_16/10;
     pixColor.g = neoPix_g_16/10;
     pixColor.b = neoPix_b_16/10;
+#endif
 
+#if defined(ARDUINO_AVR_MICRO)
     pixels.set_crgb_at(0, pixColor); pixels.sync(); // set & apply color
-    
+#endif
+
     DimmState++; 
   }
   else if (DimmState < 200){    //  DIMM UP the new color, in 100 steps
@@ -123,11 +134,15 @@ void UpdateNeoPixel(){
     neoPix_b_16 += dimmStep_b;
 
     //apply the color var to the pixColor (with division of 10)
+#if defined(ARDUINO_AVR_MICRO)
     pixColor.r = neoPix_r_16/10;
     pixColor.g = neoPix_g_16/10;
     pixColor.b = neoPix_b_16/10;
+#endif
 
+#if defined(ARDUINO_AVR_MICRO)
     pixels.set_crgb_at(0, pixColor); pixels.sync(); // set & apply color
+#endif
 
     DimmState++; 
   }
@@ -145,10 +160,12 @@ void updateNeoPixelColor(uint8_t newSlotNumber){
     DimmState = 0;
 
     //set the current color to the _16 to dimm down the current color:
+#if defined(ARDUINO_AVR_MICRO)
     neoPix_r_16 = pixColor.r * 10;     // color values are time tens higher due to smaller possible step size (prevent using floats, cause of storage size)
     neoPix_g_16 = pixColor.g * 10;
     neoPix_b_16 = pixColor.b * 10; 
-    
+#endif
+
     //set new color from slot settings
     neoPix_r = (int)((settings.sc >> 16) & 0xFF);
     neoPix_g = (int)((settings.sc >> 8) & 0xFF);

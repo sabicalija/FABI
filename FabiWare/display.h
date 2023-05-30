@@ -16,8 +16,9 @@
 #define _DISPLAY_H_
 
 
+#if defined(ARDUINO_AVR_MICRO)
 #include "ssd1306.h"    //  display Lib
-
+#endif
 
 void initDisplay();
 void writeSlot2Display();

@@ -33,7 +33,11 @@
 
 #define PCB_checkPin 14     // Input Pin to be checked: Grounded == FABI PCB Version (with LCD / Buzzer / Neopixel)
 
+#if defined(ARDUINO_AVR_MICRO)
 int8_t  led_map[NUMBER_OF_LEDS] = {14, 15, 16};
+#elif defined(ARDUINO_NANO_RP2040_CONNECT)
+int8_t  led_map[NUMBER_OF_LEDS] = {14, 15, 16}; // FIXME: refactor
+#endif
 
 const struct settingsType defaultSettings = {      // type definition see fabi.h
   "slot1", DEFAULT_WHEEL_STEPSIZE, DEFAULT_TRESHOLD_TIME,
@@ -83,8 +87,10 @@ void setup() {
     #endif
 
     // turn off built-in LEDs
+#if defined(ARDUINO_AVR_MICRO)
     pinMode(LED_BUILTIN_RX, INPUT);
     pinMode(LED_BUILTIN_TX, INPUT);
+#endif
 
     // init peripherals 
     initDisplay();
@@ -93,7 +99,9 @@ void setup() {
     initBuzzer();
   }
   else {    // no PCB Version:
+#if defined(ARDUINO_AVR_MICRO)
     TXLED1;    //turn on TX_LED
+#endif
 
     // configure the leds for slot indication as output
     for (int i = 0; i < NUMBER_OF_LEDS; i++)

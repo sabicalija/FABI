@@ -19,7 +19,9 @@
 
 //declarations used from Arduinos Keyboard library
 #include <Keyboard.h>
+#if defined(ARDUINO_AVR_MICRO)
 extern const uint8_t _asciimap[128] PROGMEM;
+#endif
 
 #define BTMODULE_UPGRADE_IDLE 0
 #define BTMODULE_UPGRADE_START 1

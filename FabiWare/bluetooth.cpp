@@ -168,7 +168,11 @@ void sendBTKeyboardReport()
 
   Serial_AUX.write(0xFD);       			//raw HID
   Serial_AUX.write(activeModifierKeys);  	//modifier keys
+#if defined(ARDUINO_AVR_MICRO)
   Serial_AUX.write(0x00);
+#elif defined(ARDUINO_NANO_RP2040_CONNECT)
+  Serial_AUX.write((uint8_t)0x00);
+#endif
   Serial_AUX.write(activeKeyCodes[0]);	//key 1
   Serial_AUX.write(activeKeyCodes[1]);   	//key 2
   Serial_AUX.write(activeKeyCodes[2]);   	//key 3
@@ -198,10 +202,12 @@ void keyboardBTPress(int key)
 		//Serial.print("mod:");
 		//Serial.println(activeModifierKeys,HEX);
 	} else {				// it's a printing keyey
+#if defined(ARDUINO_AVR_MICRO)
 		key = pgm_read_byte(_asciimap + key);
+#endif
 		if (!key) {
 			
-			return 0;
+			return;
 		}
 		//Serial.print("key:");
 		//Serial.println(key,HEX);
@@ -245,9 +251,11 @@ void keyboardBTRelease(int key)
 		activeModifierKeys &= ~(1<<(key-128));
 		key = 0;
 	} else {				// it's a printing key
+#if defined(ARDUINO_AVR_MICRO)
 		key = pgm_read_byte(_asciimap + key);
+#endif
 		if (!key) {
-			return 0;
+			return;
 		}
 		if (key & 0x80) {							// it's a capital letter or other character reached with shift
 			activeModifierKeys &= ~(0x02);	// the left shift modifier

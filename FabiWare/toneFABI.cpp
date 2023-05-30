@@ -18,6 +18,7 @@
 static volatile uint32_t ovf_counter = 0;
 uint16_t freqtable[] = {523, 587, 659, 698, 784, 880, 988, 1047};
 
+#if defined(ARDUINO_AVR_MICRO)
 /**
 	@name ISR_TIMER3_COMPA
 	@param none
@@ -34,7 +35,9 @@ ISR(TIMER3_COMPA_vect) {
 		TCCR3B = 0; //disable timer
 	}
 }
+#endif
 
+#if defined(ARDUINO_AVR_MICRO)
 /**
 	@name ISR_TIMER3_COMPB
 	@param none
@@ -48,6 +51,7 @@ ISR(TIMER3_COMPB_vect)
 {
   PORTD |= (1<<PD4);
 }
+#endif
 
 /*
 ISR(TIMER3_COMPB_vect, ISR_NAKED) {
@@ -74,10 +78,12 @@ void toneFABI(uint16_t frequency, uint16_t time)
   sei();
   //determine the OCR values, we have prescaler 64 -> 250kHHz
   //divide by the desired frequency to get the timer ticks
+#if defined(ARDUINO_AVR_MICRO)
   OCR3A = (uint16_t)((uint32_t)250000 / (uint32_t)frequency); 
   OCR3B = OCR3A / 2; //50% DC
   //set FastPWM mode (TOP -> OCR3A), enable prescaler
   TCCR3B = (1<<WGM33)|(1<<WGM32)|(1<<CS31)|(1<<CS30);
+#endif
 }
 
 /**
@@ -88,6 +94,7 @@ void toneFABI(uint16_t frequency, uint16_t time)
    initialises the buzzer pin and creates initial tone
 */
 void initBuzzer() {
+#if defined(ARDUINO_AVR_MICRO)
   DDRD &= ~(1<<PD4);
   TIMSK3 = (1<<OCIE3A)|(1<<OCIE3B);
   TCCR3A = (1<<WGM31)|(1<<WGM30);
@@ -98,5 +105,5 @@ void initBuzzer() {
   toneFABI(1,200);  delay(200);
   toneFABI(3,200);  delay(200);
   toneFABI(5,100);
-
+#endif
 }

@@ -99,8 +99,12 @@ void printCurrentSlot()
       actCmd = CMD_NC;
       buttons[i].mode=CMD_NC;
     }
-    
+
+#if defined(ARDUINO_AVR_MICRO)
     strcpy_FM(cmdStr, (uint_farptr_t_FM) atCommands[actCmd].atCmd);
+#elif defined(ARDUINO_NANO_RP2040_CONNECT)
+    strcpy_FM(cmdStr, atCommands[actCmd].atCmd);
+#endif
     Serial.print(cmdStr);
     switch (pgm_read_byte_near(&(atCommands[actCmd].partype)))
     {

@@ -16,8 +16,9 @@
 #define _NEOPIXEL_H_
 
 #include "fabi.h"
+#if defined(ARDUINO_AVR_MICRO)
 #include <WS2812.h>     //  light_ws2812 library
-
+#endif
 
 void initNeoPixel();
 void UpdateNeoPixel();
