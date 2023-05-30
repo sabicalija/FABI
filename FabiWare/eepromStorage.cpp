@@ -78,7 +78,7 @@ void moveEEPROM(uint16_t targetAdr, uint16_t sourceAdr, int count) {
    the keystring address (k_address) and the length of the keysting (k_len) are returned.
    Note that keystrings are stored "top-down" in EEPROM (k_address is the top address)
 */
-uint8_t getSlotInfos(char * slotname, uint16_t * s_address, uint16_t * k_address, uint16_t * k_len)
+uint8_t getSlotInfos(const char * slotname, uint16_t * s_address, uint16_t * k_address, uint16_t * k_len)
 {
    uint16_t address=0;
    uint16_t keystringAddress=EEPROM_TOP_ADDRESS-1;
@@ -121,7 +121,7 @@ uint8_t getSlotInfos(char * slotname, uint16_t * s_address, uint16_t * k_address
    returns 0 if EEPROM memory is full / 1 if save was successful
    
 */
-uint8_t saveToEEPROM(char * slotname)
+uint8_t saveToEEPROM(const char * slotname)
 {
    char act_slotname[MAX_SLOTNAME_LEN];
    int delta=0;
@@ -227,7 +227,7 @@ uint8_t saveToEEPROM(char * slotname)
    returns 1 if slot data was loaded and/or printed, 0 if slotname was not found
    
 */
-uint8_t readFromEEPROM(char * slotname)
+uint8_t readFromEEPROM(const char * slotname)
 {
    char slotname_copy[MAX_SLOTNAME_LEN];
    char act_slotname[MAX_SLOTNAME_LEN];
@@ -339,7 +339,7 @@ uint8_t readFromEEPROM(char * slotname)
    setting the first valid indicators to 0
    returns 0 if slotname was not found, 1 if slot(s) were deleted successfully
 */
-uint8_t deleteSlots(char * slotname)
+uint8_t deleteSlots(const char * slotname)
 {
    if (!strlen(slotname)) {
     Serial.println("deleting all slots!");

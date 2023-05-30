@@ -118,7 +118,7 @@ extern int8_t moveX;
 extern int8_t moveY;
 
 char * getKeystring (uint8_t button);
-void setKeystring (uint8_t button, char * text);
+void setKeystring (uint8_t button,const char * text);
 void printKeystrings ();
 uint16_t  keystringMemUsage(uint8_t button);
 void parseCommand (char * cmdstr);

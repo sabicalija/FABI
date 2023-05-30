@@ -323,7 +323,7 @@ uint16_t keystringMemUsage(uint8_t button)
    stores a new string/ASCII-text (for the given button) into the keyStringBuffer array
    all individual strings in the array are zero-terminated
 */
-void setKeystring (uint8_t button, char * text)
+void setKeystring (uint8_t button, const char * text)
 {
 
   // check if new string fits into memory, cancel if not!
