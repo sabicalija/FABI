@@ -18,6 +18,9 @@
 
 #if defined(ARDUINO_AVR_MICRO)
 #include "ssd1306.h"    //  display Lib
+#elif defined(ARDUINO_NANO_RP2040_CONNCET)
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
 #endif
 
 void initDisplay();
