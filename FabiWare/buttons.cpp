@@ -16,8 +16,14 @@
 #include "keys.h"
 #include "buttons.h"
 
+#if defined(ARDUINO_AVR_MICRO)
 int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS_NOPCB] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
 int8_t  input_map_PCB[NUMBER_OF_PHYSICAL_BUTTONS_PCB] = {10, 16, 19, 5, 6, 7, 8, 9};
+#elif defined(ARDUINO_NANO_RP2040_CONNECT)
+int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS_NOPCB] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
+int8_t  input_map_PCB[NUMBER_OF_PHYSICAL_BUTTONS_PCB] = {16, 17, 18, 19, 20, 21, 5, 7};
+#endif
+
 
 struct buttonType buttons [NUMBER_OF_BUTTONS];                     // array for all buttons - type definition see fabi.h
 struct buttonDebouncerType buttonDebouncers [NUMBER_OF_BUTTONS];   // array for all buttonsDebouncers - type definition see fabi.h

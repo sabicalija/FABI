@@ -35,9 +35,6 @@ ISR(TIMER3_COMPA_vect) {
 		TCCR3B = 0; //disable timer
 	}
 }
-#endif
-
-#if defined(ARDUINO_AVR_MICRO)
 /**
 	@name ISR_TIMER3_COMPB
 	@param none
@@ -65,6 +62,7 @@ ISR(TIMER3_COMPB_vect, ISR_NAKED) {
 
 void toneFABI(uint16_t frequency, uint16_t time)
 {
+#if defined(ARDUINO_AVR_MICRO)  
   //calculate the count of overflows, which is the frequency in [Hz]
   //multiplied by the time it should run, but in [ms] -> divide by 1k
   
@@ -78,11 +76,15 @@ void toneFABI(uint16_t frequency, uint16_t time)
   sei();
   //determine the OCR values, we have prescaler 64 -> 250kHHz
   //divide by the desired frequency to get the timer ticks
-#if defined(ARDUINO_AVR_MICRO)
+
   OCR3A = (uint16_t)((uint32_t)250000 / (uint32_t)frequency); 
   OCR3B = OCR3A / 2; //50% DC
   //set FastPWM mode (TOP -> OCR3A), enable prescaler
   TCCR3B = (1<<WGM33)|(1<<WGM32)|(1<<CS31)|(1<<CS30);
+
+#elif defined(ARDUINO_NANO_RP2040_CONNECT)
+  tone(BUZZER_PIN, frequency*100, time);
+  delay(time);  
 #endif
 }
 
@@ -105,5 +107,19 @@ void initBuzzer() {
   toneFABI(1,200);  delay(200);
   toneFABI(3,200);  delay(200);
   toneFABI(5,100);
+
+#elif defined(ARDUINO_NANO_RP2040_CONNECT)
+  pinMode(BUZZER_PIN, OUTPUT);
+
+  // Play the tone pattern
+  tone(BUZZER_PIN, 659, 2100);    // E5
+  delay(100);
+  tone(BUZZER_PIN, 523, 200);    // C5
+  delay(200);
+  tone(BUZZER_PIN, 587, 200);    // D5
+  delay(200);
+  tone(BUZZER_PIN, 698, 100);    // F#5
+  delay(100);
+
 #endif
 }
