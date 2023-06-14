@@ -30,8 +30,11 @@
 #include <SPI.h>
 
 
-
+#if defined(ARDUINO_AVR_MICRO)
 #define PCB_checkPin 14     // Input Pin to be checked: Grounded == FABI PCB Version (with LCD / Buzzer / Neopixel)
+#elif defined(ARDUINO_NANO_RP2040_CONNECT)
+#define PCB_checkPin 25     // Input Pin to be checked: Grounded == FABI PCB Version (with LCD / Buzzer / Neopixel)
+#endif
 
 #if defined(ARDUINO_AVR_MICRO)
 int8_t  led_map[NUMBER_OF_LEDS] = {14, 15, 16};
