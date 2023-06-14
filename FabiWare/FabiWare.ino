@@ -31,7 +31,7 @@
 
 
 
-#define PCB_checkPin 14     // Input Pin to be checked: Grounded == FABI PCB Version (with LCD / Buzzer / Neopixel)
+#define PCB_checkPin 25     // Input Pin to be checked: Grounded == FABI PCB Version (with LCD / Buzzer / Neopixel)
 
 #if defined(ARDUINO_AVR_MICRO)
 int8_t  led_map[NUMBER_OF_LEDS] = {14, 15, 16};

@@ -18,6 +18,8 @@
 #include "fabi.h"
 #if defined(ARDUINO_AVR_MICRO)
 #include <WS2812.h>     //  light_ws2812 library
+#elif defined(ARDUINO_NANO_RP2040_CONNECT)
+#include <Adafruit_NeoPixel.h>
 #endif
 
 void initNeoPixel();
