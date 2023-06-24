@@ -43,36 +43,24 @@ The source of the current web based config manager can be found in another repos
 
 ## Building the hardware
 
-There are various options for building FABI-compatible switch interfaces: you can order parts and build our construction kit, or make a completely self-driven version.
-The most affordable version consists of just a microcontroller and attached momentary switches (material cost: a few bucks ...). The construction kit offers a PCB, LC-Display, 
-Neopixel color led for indication of active configuration and optional modules (pressure sensor for sip/puff use, Bluetooth module for wireless access to phones/tablets etc.)
+Building the hardware, we used the PCB version construction kit, offering a PCB hardware design and the Arduino Nano RP2040 Connect.
+In addition a LC-Display, Neopixel color led for indication of active configuration and optional modules (pressure sensor for sip/puff use, Bluetooth module for wireless access to phones/tablets etc.)
 Following documentation is available for these different approaches:
 * **Construction kit / PCB Version**: for building the FABI PCB Version from the construction kit.\
 See [Construction kit building guide](https://github.com/asterics/FABI/blob/master/Documentation/ConstructionManual/PCB-Version/FABIManual.pdf)
-* **DIY Building Guide - "intermediate"**: guide for creating a FABI device with a bare microcontroller and the provided 3d-printed enclosures.\
-See [English version of construction manual](https://github.com/asterics/FABI/blob/master/Documentation/ConstructionManual/3D-printedBox/en/FABI_ConstructionManual.pdf) 
-or [German version of construction manual](https://github.com/asterics/FABI/blob/master/Documentation/ConstructionManual/3D-printedBox/de/FABI_Bauanleitung.pdf)
-* **DIY Building Guide - "all-selfmade"**: guide for creating a FABI device with a bare microcontroller and without the provided 3d-printed enclosures.\
-See [DIY Building Guide](https://github.com/asterics/FABI/blob/master/Documentation/ConstructionManual/SelfmadeBox/FABI_Construction_SelfmadeBox.pdf)
 
 ## Building and Installing the Firmware
 
+For building and implementing the firmware we used the current FABI implementation and pulled it from its GITHUB repository.
 The FABI system consists of a firmware part which runs on the [Arduino Pro Micro](https://www.sparkfun.com/products/12640) microcontroller. The firmware can be updated / uploaded directly from the [Configuration Manager](https://fabi.asterics.eu/). Alternatively, you can build and upload the fimware using a recent version of the [Arduino IDE](https://www.arduino.cc/en/software).
 Besides the Arduino framework, the following libraries are used und must be installed before the firmware can be compiled:
 
 * [Light_WS2812 Neopixel library by cpldcpu](https://github.com/cpldcpu/light_ws2812) 
 * [SSD1306 Oled/LCD library by Lekus2k](https://github.com/lexus2k/ssd1306) (used version: 1.8.2)
 
-Please follow the installation instructions in the respective github repositories.
-
-
-## Bluetooth AddOn
-
-FABI supports the connection of an optional [Bluetooth Module](https://github.com/asterics/esp32_mouse_keyboard). The easiest way to use this module is to build the construction kit, 
-because the PCB offers a dedicated 10-pin connector which fits the module. Pairing process and firmware update for the BT-module will be described in the user manual soon!
-
-![FABI PCB version, equipped with Bluetooth Module](https://github.com/asterics/FABI/blob/master/img/pcb_open.JPG "FABI PCB version with equipped bluetooth module")
-
+We adapted the implemented FABI firmware by adding functions suitable for the newly used microcontroller, the [Arduino Nano RP2040 Connect](https://store.arduino.cc/products/arduino-nano-rp2040-connect). The used API has been adpated too, using a port of the RP2040 (Pi Pico processor) 
+to the Arduino System of [Earle Philhower](https://github.com/earlephilhower/arduino-pico). The display's and neopixel's functions were adpated by 
+using their Adafruit libraries. 
 
 ## Example setups and applications
 
