@@ -23,7 +23,6 @@ Essential information can be found in the following folders
 * _FaviGUI_C#:_ the (outdated) graphical user interface (for Windows) -> still use of FabiGUI
 * _FaviWare:_ the microcontroller firmware
 * _hardware:_ the KiCad design files and models for schematics and PCB layout
-* _Settings:_ demo configurations which can be loaded into the FABI device via the GUI
 
 The source of the current web based config manager can be found in another repository: [source of web based config manager](https://github.com/asterics/Addon-Bluetooth-WebGUI/tree/main/webgui)
 
