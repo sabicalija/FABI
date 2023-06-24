@@ -1,42 +1,31 @@
-# Welcome to FABI
+# Welcome to FAVI
 
-The FABI (Flexible Assistive Button Interface) allows control of a computer’s mouse cursor or
-keyboard by just using momentary switches. This can be helpful for people who want to create 
-user interactions with the press of a button - and it allows people who can't use standard computer input devices
-to play games, surf the internet, communicate and much more.
+The FAVI (Flexible Assistive Voice Interface) allows control of a computer’s mouse cursor or
+keyboard by just using voice commands. This can be helpful for people who want to create 
+user interactions with their voice - and it allows people who can't use standard computer input devices, 
+like mouse and keyboard, to play games, surf the internet, communicate and much more.
 
 ![A FABI box with attached 3d-printed switch](https://github.com/asterics/FABI/blob/master/img/FABI4.png "FABI box with attached switch")
 
 
 ## How?
 
-The FABI Interface can be actuated via dedicated buttons, momentary switches or self-made
-electrical contacts. Additionally, a sip-puff sensor can be used to create user input.
-FABI consists of a hardware module (a low-cost microcontroller which behaves
+The FAVI Interface can be actuated via a build-in microphone of a microcontroller. 
+FAVI consists of a hardware module (a low-cost microcontroller which behaves
 as a computer mouse and/or keyboard) and a config manager software for configuration of
-the desired functions. The FABI system can be attached to computers, tablets or smart phones via USB.
+the desired voice commands. The FAVI system can be attached to computers, tablets or smart phones via USB.
 Additionally, a bluetooth-module is available for devices that do not have a USB port (some Android or iOS phones).
 
 ## Folder structure of this repository
 Essential information can be found in the following folders
 * _Case Designs:_ different 3d-printable / lasercut designs for enclosures
 * _Documentation:_ all user and construction manuals
-* _FabiGUI_C#:_ the (outdated) graphical user interface (for Windows)
-* _FabiWare:_ the microcontroller firmware
+* _FaviGUI_C#:_ the (outdated) graphical user interface (for Windows) -> still use of FabiGUI
+* _FaviWare:_ the microcontroller firmware
 * _hardware:_ the KiCad design files and models for schematics and PCB layout
 * _Settings:_ demo configurations which can be loaded into the FABI device via the GUI
 
 The source of the current web based config manager can be found in another repository: [source of web based config manager](https://github.com/asterics/Addon-Bluetooth-WebGUI/tree/main/webgui)
-
-## Configuration Manager and User manual
-
-The FABI system does not ony offer fixed mappings of buttons to functions - it allows storing multiple configuration settings and changing them "on-the-fly". For configuration the [web-based config manager](https://fabi.asterics.eu/) should be used.
-You can find information how to configure the individual button functions and system options in the user manual:
-
-* [English user manual for configuration manager](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Markdown/Fabi%20User%20Manual.md) 
-* [German user manual for configuration manager](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Markdown/Fabi%20Anwendungsanleitung.md)
-
-
 
 ## Building the hardware
 
