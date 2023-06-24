@@ -10,11 +10,26 @@ like mouse and keyboard, to play games, surf the internet, communicate and much 
 
 ## How?
 
-The FAVI Interface can be actuated via a build-in microphone of a microcontroller. 
-FAVI consists of a hardware module (a low-cost microcontroller which behaves
-as a computer mouse and/or keyboard) and a config manager software for configuration of
-the desired voice commands. The FAVI system can be attached to computers, tablets or smart phones via USB.
-Additionally, a bluetooth-module is available for devices that do not have a USB port (some Android or iOS phones).
+The FAVI Interface can be also actuated via a build-in microphone of a microcontroller. 
+FAVI consists of a hardware module (a low-cost microcontroller which behaves as a computer mouse and/or keyboard)
+and a config manager software for configuration of the desired voice commands.The current implementation(s)
+use the SparkFun Pro Micro as a microcontroller to interface the buttons and to communicate with a 
+PC via USB. In addition, a bluetooth module can be used to allow for communication with a PC via Bluetooth.
+
+Users and tinkerers can choose between two variants, (w/ and w/o Bluetooth) to allow for cheaper variants, 
+where Bluetooth functionality is not necessary. However, using a more powerful, recent microcontroller 
+(with WiFi and Bluetooth support, out-of-the-box) could reduce costs of the variant w/ Bluetooth
+and allow for extended input or control functionality, respectively, using voice commands instead of or
+in addition to the momentary switches.
+
+## Goals and project delimination
+
+We developed a variant of FABI, as called FAVI, based on the Arduino Nano RP2040 Connect to allow for 
+USB and Bluetooth communication without the necessity of an addon module. In addition, we compile a 
+machine learning (ML) model using TensorFlow Lite, to detect pre-defined voice commands as called 
+speech recognition, respectively, alloying the control by voice. Therefore the ML model needs to be 
+implemented, trained, tested and validated. In addition the GUI of the FABI device needs to be adapted
+to be able to use the Arduino Nano RP2040 Connect. 
 
 ## Folder structure of this repository
 Essential information can be found in the following folders
