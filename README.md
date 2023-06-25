@@ -62,31 +62,13 @@ We adapted the implemented FABI firmware by adding functions suitable for the ne
 to the Arduino System of [Earle Philhower](https://github.com/earlephilhower/arduino-pico). The display's and neopixel's functions were adpated by 
 using their Adafruit libraries. 
 
-## Example setups and applications
+## Machine Learning (ML) model
 
-![An opened FABI box, where you can see the Teensy microcontroller board and the 6 jackplugs](https://github.com/asterics/FABI/blob/master/img/7.jpg "FABI box with jackplugs")
-![A wooden piece with 6 buttons, arranged between, left and right of your hands. Enabling faster working with shortcuts on each button](https://github.com/asterics/FABI/blob/master/img/2.jpg "RapidCoding prototype, powered by FABI")
-![A FABI box, where 3 different external buttons are connected](https://github.com/asterics/FABI/blob/master/img/8.jpg "FABI box with external buttons")
-
-More examples are available in the [wiki](https://github.com/asterics/FABI/wiki).
-
-## Support us
-If you want to support the development of FABI you're very welcome to donate to the AsTeRICS Foundation:
-
-<div>
-<a title="Donate with PayPal" href="https://www.paypal.com/donate/?hosted_button_id=38AJJNS427MJ2" target="_blank" style="margin-right:3em">
-<img src="https://github.com/asterics/AsTeRICS-Grid/raw/master/app/img/donate-paypal.png" width=300/></a>
-<span>&nbsp;&nbsp;&nbsp;</span>
-<a title="Donate at opencollective.com" href="https://opencollective.com/asterics-foundation" target="_blank">
-<img src="https://github.com/asterics/AsTeRICS-Grid/raw/master/app/img/donate-open-collective.png" width=300/></a>
-</div>
-
-## About / Credits
-
-FABI is an open source Assistive Technology module developed by the AsTeRICS Foundation in cooperation with the UAS Technikum Wien.
-(see https://www.asterics-foundation.org).
-
-All software and hardware documents are open source and we took care to use the most
-affordable components available on the market to establish these functionalities – making FABI the
-most reasonably priced flexible assistive button interface we know !!
+The machine learning model for recognising voice commands to control the FAVI firmware has been implemented in the 
+[Google Colab](https://colab.research.google.com/?utm_source=scs-index) envrionment. As an example machine learning model used 
+for speech recognition we used a guide on [TensorFlow Blog](https://blog.tensorflow.org/2021/09/TinyML-Audio-for-everyone.html). 
+We implemented the different steps in Google Colab reaching the training's part of the guide. Due to complications regarding the 
+dependencies and time delimitations, the steps of "Transfer Learning" have been stopped. In the folder ML model, the machine learning
+model is stored as an .ipynb file. In further steps one can use this pre-trained model for "Transfer Learning" and compile it
+as a TensorFlow Lite model to run it on the Arduino Nano RP2040 Connect. 
 
