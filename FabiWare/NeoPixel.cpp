@@ -35,6 +35,12 @@ uint8_t DimmState = 0;
 #if defined(ARDUINO_AVR_MICRO)
 WS2812 pixels(1);
 cRGB pixColor;
+#elif defined(ARDUINO_NANO_RP2040_CONNECT)
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(1, PIXELS_PIN, NEO_GRB + NEO_KHZ800);
+
+uint8_t a_neoPix_r = 0;
+uint8_t a_neoPix_g = 0;
+uint8_t a_neoPix_b = 0;
 #endif
 
 
@@ -54,20 +60,27 @@ void initNeoPixel(){
 #if defined(ARDUINO_AVR_MICRO)
     pixels.setOutput(PIXELS_PIN);
     pixels.setColorOrderGRB();
-#endif
 
-#if defined(ARDUINO_AVR_MICRO)
     pixColor.r = 0; pixColor.g = 0; pixColor.b = 0; // RGB Value
     pixels.set_crgb_at(0, pixColor);    // set defined color
     pixels.sync(); // Sends the value to the LED
-#endif
+
 
     //Pixel startup sequenc:
-#if defined(ARDUINO_AVR_MICRO)
     for (uint8_t i = 0; i < 255; i++) {
       pixColor.r = i;
       pixels.set_crgb_at(0, pixColor);
       pixels.sync();
+      delay(4);
+    }
+#elif defined(ARDUINO_NANO_RP2040_CONNECT)
+    pixels.begin();
+    pixels.setPixelColor(0, pixels.Color(0, 0, 0));
+    pixels.show();
+
+    for (uint8_t i = 0; i < 255; i++) {
+      pixels.setPixelColor(0, pixels.Color(i, 0, 0));
+      pixels.show();
       delay(4);
     }
 #endif
@@ -111,10 +124,15 @@ void UpdateNeoPixel(){
     pixColor.r = neoPix_r_16/10;
     pixColor.g = neoPix_g_16/10;
     pixColor.b = neoPix_b_16/10;
-#endif
 
-#if defined(ARDUINO_AVR_MICRO)
     pixels.set_crgb_at(0, pixColor); pixels.sync(); // set & apply color
+#elif defined(ARDUINO_NANO_RP2040_CONNECT)
+    a_neoPix_r = neoPix_r_16/10;
+    a_neoPix_g = neoPix_g_16/10;
+    a_neoPix_b = neoPix_b_16/10;
+
+    pixels.setPixelColor(0, pixels.Color(a_neoPix_r, a_neoPix_g, a_neoPix_b));
+    pixels.show();
 #endif
 
     DimmState++; 
@@ -138,10 +156,15 @@ void UpdateNeoPixel(){
     pixColor.r = neoPix_r_16/10;
     pixColor.g = neoPix_g_16/10;
     pixColor.b = neoPix_b_16/10;
-#endif
 
-#if defined(ARDUINO_AVR_MICRO)
     pixels.set_crgb_at(0, pixColor); pixels.sync(); // set & apply color
+#elif defined(ARDUINO_NANO_RP2040_CONNECT)
+    a_neoPix_r = neoPix_r_16/10;
+    a_neoPix_g = neoPix_g_16/10;
+    a_neoPix_b = neoPix_b_16/10;
+
+    pixels.setPixelColor(0, pixels.Color(a_neoPix_r, a_neoPix_g, a_neoPix_b));
+    pixels.show();
 #endif
 
     DimmState++; 
@@ -164,6 +187,10 @@ void updateNeoPixelColor(uint8_t newSlotNumber){
     neoPix_r_16 = pixColor.r * 10;     // color values are time tens higher due to smaller possible step size (prevent using floats, cause of storage size)
     neoPix_g_16 = pixColor.g * 10;
     neoPix_b_16 = pixColor.b * 10; 
+#elif defined(ARDUINO_NANO_RP2040_CONNECT)
+    neoPix_r_16 = a_neoPix_r * 10;     // color values are time tens higher due to smaller possible step size (prevent using floats, cause of storage size)
+    neoPix_g_16 = a_neoPix_g * 10;
+    neoPix_b_16 = a_neoPix_b * 10; 
 #endif
 
     //set new color from slot settings
