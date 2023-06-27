@@ -13,7 +13,8 @@
 
 #include "fabi.h"
 #include "display.h"
-
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
 /**
    @name initDisplay
    @param none
