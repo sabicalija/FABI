@@ -83,7 +83,7 @@
 #define KEY_F24 0xFB
 
 struct keymap_struct {
-  char *token;
+  const char *token;
   int key;
 };
 
